@@ -16,6 +16,10 @@ defmodule PentoWeb.WrongLive do
       It's <%= @time %>
     </h2>
     <button phx-click="restartGame">Restart</button>
+    <pre>
+    <%= @user.email %>
+    <%= @session_id %>
+    </pre>
     """
   end
 
@@ -23,14 +27,16 @@ defmodule PentoWeb.WrongLive do
     DateTime.utc_now() |> to_string
   end
 
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
     {
       :ok,
       assign(
         socket,
         score: 0,
         message: "Guess a number.",
-        time: time()
+        time: time(),
+        user: Pento.Accounts.get_user_by_session_token(session["user_token"]),
+        session_id: session["live_socket_id"]
       )
     }
   end
