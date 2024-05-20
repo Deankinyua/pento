@@ -1,6 +1,7 @@
 <.header>
   Listing Products
   <:actions>
+    <%!-- *the live navigation event triggering the :new action --%>
     <.link patch={~p"/products/new"}>
       <.button>New Product</.button>
     </.link>
@@ -20,6 +21,7 @@
     <div class="sr-only">
       <.link navigate={~p"/products/#{product}"}>Show</.link>
     </div>
+    <%!-- *the live navigation event triggering the :edit action --%>
     <.link patch={~p"/products/#{product}/edit"}>Edit</.link>
   </:action>
   <:action :let={{id, product}}>
@@ -38,6 +40,8 @@
   show
   on_cancel={JS.patch(~p"/products")}
 >
+  <%!-- *the live navigation event triggering the :index action --%>
+
   <.live_component
     module={PentoWeb.ProductLive.FormComponent}
     id={@product.id || :new}

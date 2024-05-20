@@ -8,6 +8,7 @@ defmodule PentoWeb.ProductLive.FormComponent do
     ~H"""
     <div>
       <.header>
+        <%!-- * the @title assign *--%>
         <%= @title %>
         <:subtitle>Use this form to manage product records in your database.</:subtitle>
       </.header>
@@ -32,6 +33,7 @@ defmodule PentoWeb.ProductLive.FormComponent do
   end
 
   @impl true
+  # * the product assign
   def update(%{product: product} = assigns, socket) do
     changeset = Catalog.change_product(product)
 
@@ -46,6 +48,7 @@ defmodule PentoWeb.ProductLive.FormComponent do
     changeset =
       socket.assigns.product
       |> Catalog.change_product(product_params)
+      # * the @action assign
       |> Map.put(:action, :validate)
 
     {:noreply, assign_form(socket, changeset)}
@@ -63,6 +66,7 @@ defmodule PentoWeb.ProductLive.FormComponent do
         {:noreply,
          socket
          |> put_flash(:info, "Product updated successfully")
+         #  * the patch assign
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
