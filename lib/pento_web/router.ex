@@ -27,10 +27,6 @@ defmodule PentoWeb.Router do
 
     live "/products/:id", ProductLive.Show, :show
     live "/products/:id/show/edit", ProductLive.Show, :edit
-
-    live "/tasks", BoardLive
-    # live "/tasks/:id/edit", BoardLive.Index
-    # live "/tasks/new", BoardLive.Index
   end
 
   # Other scopes may use custom stacks.
