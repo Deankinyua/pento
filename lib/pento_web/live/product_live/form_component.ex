@@ -47,8 +47,8 @@ defmodule PentoWeb.ProductLive.FormComponent do
   def handle_event("validate", %{"product" => product_params}, socket) do
     changeset =
       socket.assigns.product
+      # * Returns an `%Ecto.Changeset{}` for tracking product changes.
       |> Catalog.change_product(product_params)
-      # * the @action assign
       |> Map.put(:action, :validate)
 
     {:noreply, assign_form(socket, changeset)}
@@ -58,6 +58,7 @@ defmodule PentoWeb.ProductLive.FormComponent do
     save_product(socket, socket.assigns.action, product_params)
   end
 
+  # * Function for saving an edited product
   defp save_product(socket, :edit, product_params) do
     case Catalog.update_product(socket.assigns.product, product_params) do
       {:ok, product} ->
@@ -66,13 +67,15 @@ defmodule PentoWeb.ProductLive.FormComponent do
         {:noreply,
          socket
          |> put_flash(:info, "Product updated successfully")
-         #  * the patch assign
+         #  * the patch assign which happens to be ~p"/products"
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}
     end
   end
+
+  # * Function for saving an new product
 
   defp save_product(socket, :new, product_params) do
     case Catalog.create_product(product_params) do
@@ -81,7 +84,9 @@ defmodule PentoWeb.ProductLive.FormComponent do
 
         {:noreply,
          socket
+         # * Adds a flash message to the socket to be displayed
          |> put_flash(:info, "Product created successfully")
+         #  * Navigate to the required path i.e ~p"/products"
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -89,9 +94,11 @@ defmodule PentoWeb.ProductLive.FormComponent do
     end
   end
 
+  # * This function produces a corresponding form with the given changeset
   defp assign_form(socket, %Ecto.Changeset{} = changeset) do
     assign(socket, :form, to_form(changeset))
   end
 
+  # *  This function is used for messaging passing between the form live_component and the index live view
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
 end

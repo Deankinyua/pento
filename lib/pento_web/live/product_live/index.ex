@@ -10,6 +10,7 @@ defmodule PentoWeb.ProductLive.Index do
   end
 
   @impl true
+  # * Invoked after Mount and whenever there is a live patch event
   def handle_params(params, _url, socket) do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
