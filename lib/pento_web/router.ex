@@ -28,6 +28,17 @@ defmodule PentoWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live "/guess", WrongLive
+
+    # * By specifying a live
+    # * action in the route definition, LiveView adds a key of :live_action to the live view’s
+    # * socket assigns, setting it to the value of the provided action
+
+    live "/products", ProductLive.Index, :index
+    live "/products/:id/edit", ProductLive.Index, :edit
+    live "/products/new", ProductLive.Index, :new
+
+    live "/products/:id", ProductLive.Show, :show
+    live "/products/:id/show/edit", ProductLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
