@@ -55,6 +55,7 @@ defmodule PentoWeb.ProductLive.FormComponent do
   end
 
   def handle_event("save", %{"product" => product_params}, socket) do
+    # * Handling events based on the action assign
     save_product(socket, socket.assigns.action, product_params)
   end
 

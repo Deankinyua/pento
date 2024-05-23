@@ -21,6 +21,10 @@ defmodule PentoWeb.Router do
     live "/live", PageLive, :index
     live "/guess", WrongLive
 
+    # * By specifying a live
+    # * action in the route definition, LiveView adds a key of :live_action to the live view’s
+    # * socket assigns, setting it to the value of the provided action
+
     live "/products", ProductLive.Index, :index
     live "/products/:id/edit", ProductLive.Index, :edit
     live "/products/new", ProductLive.Index, :new
