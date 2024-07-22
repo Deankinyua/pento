@@ -20,7 +20,7 @@ defmodule PentoWeb.Router do
   scope "/", PentoWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/", PageController, :index
     get "/custom", CustomController, :index
     live "/live", PageLive, :index
   end
