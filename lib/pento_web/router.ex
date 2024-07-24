@@ -43,6 +43,13 @@ defmodule PentoWeb.Router do
 
     live "/products/:id", ProductLive.Show, :show
     live "/products/:id/show/edit", ProductLive.Show, :edit
+
+    live "/phones", PhoneLive.Index, :index
+    live "/phones/new", PhoneLive.Index, :new
+    live "/phones/:id/edit", PhoneLive.Index, :edit
+
+    live "/phones/:id", PhoneLive.Show, :show
+    live "/phones/:id/show/edit", PhoneLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

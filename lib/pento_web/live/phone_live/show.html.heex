@@ -1,0 +1,33 @@
+<.header>
+  Phone <%= @phone.id %>
+  <:subtitle>This is a phone record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/phones/#{@phone}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit phone</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @phone.name %></:item>
+  <:item title="Description"><%= @phone.description %></:item>
+  <:item title="Price"><%= @phone.price %></:item>
+</.list>
+
+<.back navigate={~p"/phones"}>Back to phones</.back>
+
+<.modal
+  :if={@live_action == :edit}
+  id="phone-modal"
+  show
+  on_cancel={JS.patch(~p"/phones/#{@phone}")}
+>
+  <.live_component
+    module={PentoWeb.PhoneLive.FormComponent}
+    id={@phone.id}
+    title={@page_title}
+    action={@live_action}
+    phone={@phone}
+    patch={~p"/phones/#{@phone}"}
+  />
+</.modal>

@@ -1,6 +1,8 @@
 defmodule Pento.Accounts do
   @moduledoc """
   The Accounts context.
+  use :
+   <exports Accounts> in iex to view the functions in the module
   """
 
   import Ecto.Query, warn: false
@@ -22,6 +24,7 @@ defmodule Pento.Accounts do
       nil
 
   """
+  # * A bitstring is a binary if the number of bits is strictly divisible by 8
   def get_user_by_email(email) when is_binary(email) do
     Repo.get_by(User, email: email)
   end

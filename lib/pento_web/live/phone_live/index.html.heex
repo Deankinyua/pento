@@ -1,0 +1,48 @@
+<.header>
+  Listing Phones
+  <:actions>
+    <.link patch={~p"/phones/new"}>
+      <.button>New Phone</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="phones"
+  rows={@streams.phones}
+  row_click={fn {_id, phone} -> JS.navigate(~p"/phones/#{phone}") end}
+>
+  <:col :let={{_id, phone}} label="Name"><%= phone.name %></:col>
+  <:col :let={{_id, phone}} label="Description"><%= phone.description %></:col>
+  <:col :let={{_id, phone}} label="Price"><%= phone.price %></:col>
+  <:action :let={{_id, phone}}>
+    <div class="sr-only">
+      <.link navigate={~p"/phones/#{phone}"}>Show</.link>
+    </div>
+    <.link patch={~p"/phones/#{phone}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, phone}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: phone.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="phone-modal"
+  show
+  on_cancel={JS.patch(~p"/phones")}
+>
+  <.live_component
+    module={PentoWeb.PhoneLive.FormComponent}
+    id={@phone.id || :new}
+    title={@page_title}
+    action={@live_action}
+    phone={@phone}
+    patch={~p"/phones"}
+  />
+</.modal>
