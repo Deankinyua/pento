@@ -75,6 +75,20 @@ defmodule Pento.Catalog do
     |> Repo.update()
   end
 
+  def update_product2(%Product{} = product, attrs) do
+    product
+    |> Product.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def markdown_product(%Product{} = product, price_cut, attrs) do
+    new_price = product.unit_price - price_cut
+    map2 = %{unit_price: new_price}
+    attrs = Map.merge(attrs, map2)
+    update_product2(product, attrs)
+
+  end
+
   @doc """
   Deletes a product.
 
