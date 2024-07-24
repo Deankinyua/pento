@@ -1,6 +1,7 @@
 defmodule Pento.Catalog do
   @moduledoc """
   The Catalog context.
+  where uncertainty related to products is handled
   """
 
   import Ecto.Query, warn: false
@@ -68,8 +69,9 @@ defmodule Pento.Catalog do
 
   """
   def update_product(%Product{} = product, attrs) do
+    price = product.unit_price
     product
-    |> Product.changeset(attrs)
+    |> Product.changeset2(attrs, price)
     |> Repo.update()
   end
 
@@ -100,5 +102,7 @@ defmodule Pento.Catalog do
   """
   def change_product(%Product{} = product, attrs \\ %{}) do
     Product.changeset(product, attrs)
+    # * We could use Product.changeset(%Product{}, attrs)
+    # * but that would be ugly so we pattern match instead
   end
 end
