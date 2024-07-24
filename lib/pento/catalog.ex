@@ -70,6 +70,7 @@ defmodule Pento.Catalog do
   """
   def update_product(%Product{} = product, attrs) do
     price = product.unit_price
+
     product
     |> Product.changeset2(attrs, price)
     |> Repo.update()
@@ -86,7 +87,6 @@ defmodule Pento.Catalog do
     map2 = %{unit_price: new_price}
     attrs = Map.merge(attrs, map2)
     update_product2(product, attrs)
-
   end
 
   @doc """
