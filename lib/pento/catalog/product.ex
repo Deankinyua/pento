@@ -12,10 +12,15 @@ defmodule Pento.Catalog.Product do
   end
 
   @doc false
+
+  # * Remember a changeset is never contained in a database
+  # * The work of a changeset is keeping bad data from being inserted
+  # * Uses the valid flag to determine whether to insert the data
   def changeset(product, attrs) do
     product
     |> cast(attrs, [:name, :description, :unit_price, :sku])
     |> validate_required([:name, :description, :unit_price, :sku])
+    |> validate_number(:unit_price, greater_than: 0.0)
     |> unique_constraint(:sku)
   end
 end
