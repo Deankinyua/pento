@@ -4,6 +4,8 @@ defmodule PentoWeb.Router do
   import PentoWeb.UserAuth
 
   pipeline :browser do
+    # * When you see lists of plugs, imagine a pipe operator between them
+    # * A pipeline is a grouping of plugs that applies a set of transformations to a given connection.
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
@@ -29,6 +31,7 @@ defmodule PentoWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live "/guess", WrongLive
+    live "/play", PlayLive
 
     # * By specifying a live
     # * action in the route definition, LiveView adds a key of :live_action to the live view’s
