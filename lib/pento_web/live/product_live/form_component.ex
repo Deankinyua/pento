@@ -34,6 +34,9 @@ defmodule PentoWeb.ProductLive.FormComponent do
 
   @impl true
   # * the product assign
+  # * the update/2 callback will be used to keep the component up-to-
+  # * date whenever the parent live view or the component itself changes.
+
   def update(%{product: product} = assigns, socket) do
     changeset = Catalog.change_product(product)
 
@@ -50,6 +53,8 @@ defmodule PentoWeb.ProductLive.FormComponent do
       # * Returns an `%Ecto.Changeset{}` for tracking product changes.
       |> Catalog.change_product(product_params)
       |> Map.put(:action, :validate)
+
+    dbg(socket.assigns.product)
 
     {:noreply, assign_form(socket, changeset)}
   end
