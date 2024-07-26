@@ -46,6 +46,9 @@ defmodule PentoWeb.ProductLive.FormComponent do
      |> assign_form(changeset)}
   end
 
+  # * When you see a form anywhere in Phoenix, think changing data.
+  # * change is represented with a changeset.
+
   @impl true
   def handle_event("validate", %{"product" => product_params}, socket) do
     changeset =

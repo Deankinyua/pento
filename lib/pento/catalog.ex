@@ -69,16 +69,16 @@ defmodule Pento.Catalog do
 
   """
   def update_product(%Product{} = product, attrs) do
-    price = product.unit_price
-
     product
-    |> Product.changeset2(attrs, price)
+    |> Product.changeset(attrs)
     |> Repo.update()
   end
 
   def update_product2(%Product{} = product, attrs) do
+    price = product.unit_price
+
     product
-    |> Product.changeset(attrs)
+    |> Product.changeset2(attrs, price)
     |> Repo.update()
   end
 
