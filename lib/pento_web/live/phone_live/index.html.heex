@@ -1,5 +1,8 @@
 <.header>
   Listing Phones
+  <.unordered_list :let={fruit} entries={~w(apples bananas cherries)}>
+    I like <b><%= fruit %></b>!
+  </.unordered_list>
   <:actions>
     <.link patch={~p"/phones/new"}>
       <.button>New Phone</.button>

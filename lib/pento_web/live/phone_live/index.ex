@@ -44,4 +44,18 @@ defmodule PentoWeb.PhoneLive.Index do
 
     {:noreply, stream_delete(socket, :phones, phone)}
   end
+
+  # * Empasizing the use of render_slot/2 to handle dynamic values
+  slot :inner_block, required: true
+  attr :entries, :list, default: []
+
+  def unordered_list(assigns) do
+    ~H"""
+    <ul>
+      <%= for entry <- @entries do %>
+        <li><%= render_slot(@inner_block, entry) %></li>
+      <% end %>
+    </ul>
+    """
+  end
 end

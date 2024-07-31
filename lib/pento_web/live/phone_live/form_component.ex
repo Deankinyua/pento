@@ -12,6 +12,8 @@ defmodule PentoWeb.PhoneLive.FormComponent do
         <:subtitle>Use this form to manage phone records in your database.</:subtitle>
       </.header>
 
+      <.notification message="You've got mail!" class="bg-red-700" phx-click="close" />
+
       <.simple_form
         for={@form}
         id="phone-form"
@@ -27,6 +29,18 @@ defmodule PentoWeb.PhoneLive.FormComponent do
         </:actions>
       </.simple_form>
     </div>
+    """
+  end
+
+  # * Understanding that declaring an attribute of the type 'global' make it possible to include
+  # * all Attributes in the HTML5 global attributes set such as clicks and classes
+
+  attr :message, :string, required: true
+  attr :rest, :global
+
+  def notification(assigns) do
+    ~H"""
+    <span {@rest}><%= @message %></span>
     """
   end
 

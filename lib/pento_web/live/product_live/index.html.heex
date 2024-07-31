@@ -1,5 +1,9 @@
 <.header>
   Listing Products
+  <:subtitle>
+    This is the subtitle
+  </:subtitle>
+
   <:actions>
     <%!-- *the live navigation event triggering the :new action --%>
     <.link patch={~p"/products/new"}>
@@ -7,6 +11,8 @@
     </.link>
   </:actions>
 </.header>
+
+<.header></.header>
 
 <.table
   id="products"
